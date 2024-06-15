@@ -1,3 +1,4 @@
 target
 frontent/target
 frontend/dist/*
+/frontend/style/leptos-bulma.scss

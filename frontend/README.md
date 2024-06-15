@@ -25,7 +25,7 @@ rustup target add wasm32-unknown-unknown
 
 - See [Hello World! Getting Set up for Leptos CSR Development](https://book.leptos.dev/getting_started/index.html#hello-world-getting-set-up-for-leptos-csr-development)
 
-## How to customize leptos configuration 
+## How to customize leptos configuration
 
 Edit the `Cargo.toml` file:
 
@@ -40,7 +40,32 @@ reload_port = 3001
 - This metadata is not interpreted by Cargo itself but can be used by other tools or libraries that integrate with Cargo.
 - The `[package.metadata.leptos]` section is an example of such metadata, likely used by a specific tool or library called leptos.
 
+## Add Bulma CSS
+
+- Add dependencies
+  
+  ```toml
+  [dependencies]
+  leptos-bulma = { version = "0.4.0", features = ["build-script"] }
+  ```
+
+- modify `src/main.rs` to bo:
+  
+  ```rust 
+  use leptos::*;
+
+  fn main() {
+      leptos_bulma::build("./style");
+      mount_to_body(|| view! { <p>"Hello, world!"</p> })
+  }
+  ```
+  
+  Then `cargo run` to generate `frontend/style` folder for Bulma CSS.
+
+
 ## References
 
 - [Letpos CSR](https://book.leptos.dev/getting_started/index.html)
-- [Leptos is becoming best rust web framwork and How to set up(may outdated)](https://github.com/leptos-rs/leptos/discussions/125)
+  - [Leptos is becoming best rust web framwork and How to set up(may outdated)](https://github.com/leptos-rs/leptos/discussions/125)
+- [leptos-bulma](https://crates.io/crates/leptos-bulma)
+  - [How to Install in Leptos CSR (Trunk)](https://leptos-bulma.fermyon.app/guides#how-to-install-csr)
