@@ -49,19 +49,7 @@ reload_port = 3001
   leptos-bulma = { version = "0.4.0", features = ["build-script"] }
   ```
 
-- modify `src/main.rs` to bo:
-  
-  ```rust 
-  use leptos::*;
-
-  fn main() {
-      leptos_bulma::build("./style");
-      mount_to_body(|| view! { <p>"Hello, world!"</p> })
-  }
-  ```
-  
-  Then `cargo run` to generate `frontend/style` folder for Bulma CSS.
-
+- Follow [How to Install in Leptos CSR (Trunk)](https://leptos-bulma.fermyon.app/guides#how-to-install-csr)
 
 ## References
 
