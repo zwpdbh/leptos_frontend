@@ -1,8 +1,7 @@
-# [watch]
-# # ···
-# ignore = ["style"]
+[watch]
+ignore = ["./style", "./dist", "./target"]
 
-# [[hooks]]
-# stage = "pre_build"
-# command = "cargo"
-# command_arguments = ["run", "--bin", "build-leptos-bulma"]
+[[hooks]]
+stage = "pre_build"
+command = "cargo"
+command_arguments = ["run", "--bin", "build-leptos-bulma"]
