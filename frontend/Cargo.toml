@@ -8,6 +8,8 @@ leptos = { version = "0.6.12", features = ["csr", "nightly"] }
 leptos-bulma = { version = "0.4.0", features = ["build-script"] }
 leptos_meta = { version = "0.6", features = ["csr", "nightly"] }
 leptos_router = { version = "0.6", features = ["csr", "nightly"] }
+gloo-timers = { version = "0.3", features = ["futures"] }
+uuid = { version = "1", features = ["v4"] }
 console_log = "1"
 log = "0.4"
 console_error_panic_hook = "0.1"
@@ -19,8 +21,8 @@ web-sys = { version = "0.3", features = ["Document", "Window"] }
 
 
 [package.metadata.leptos]
-# On which port to serve the client side rendered site (when using --csr option)
-csr_port = 8000
+# # On which port to serve the client side rendered site (when using --csr option)
+# csr_port = 3003
 # The port to use for automatic reload monitoring
 reload_port = 3001
 # Path, relative to root, to generat rust code to

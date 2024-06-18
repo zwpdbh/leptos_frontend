@@ -37,21 +37,28 @@
   },
   "rust-analyzer.showUnlinkedFileNotification": false,
   "rust-analyzer.cargo.features": [],
+  "rust-analyzer.procMacro.ignored": {
+    "leptos_macro": [
+      "server"
+    ],
+  },
+  "rust-analyzer.rustfmt.overrideCommand": [
+    "leptosfmt",
+    "--stdin",
+    "--rustfmt"
+  ],
+  "files.associations": {
+    "*.rs": "rust",
+  },
+  "emmet.showAbbreviationSuggestions": true,
   "emmet.includeLanguages": {
     "rust": "html",
     "*.rs": "html"
   },
-  "tailwindCSS.includeLanguages": {
-    "rust": "html",
-    "*.rs": "html"
-  },
-  "files.associations": {
-    "*.rs": "rust"
-  },
   "editor.quickSuggestions": {
-    "other": "on",
-    "comments": "on",
-    "strings": true
+    "comments": "inline",
+    "strings": "on",
+    "other": "on"
   },
   "css.validate": false,
 }
