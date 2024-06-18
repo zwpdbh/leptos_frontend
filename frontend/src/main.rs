@@ -1,5 +1,7 @@
+mod bulma_playground;
 mod leptos_demo_components;
 
+use bulma_playground::*;
 use leptos::*;
 use leptos_demo_components::demo_nested_route::*;
 use leptos_demo_components::*;
@@ -117,8 +119,10 @@ fn App() -> impl IntoView {
 #[component]
 pub fn HomePageDiv() -> impl IntoView {
     view! {
-        <div>
-            <h2>"Home Page"</h2>
+        <div class="section">
+
+            <h2 class="title">"Home Page"</h2>
+            <BulmaPlayground/>
         </div>
     }
 }
