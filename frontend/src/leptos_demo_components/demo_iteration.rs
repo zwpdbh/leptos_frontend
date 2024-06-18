@@ -21,19 +21,46 @@ pub fn DemoBasicIteration() -> impl IntoView {
         .collect_view();
 
     view! {
-        <h1>"Demo iteration: static views and dynamic views"</h1>
-        <h2>"Static List"</h2>
-        <p>{values.clone()}</p>
-        // or we can wrap them in <li>
-        <ul>{values.clone().into_iter().map(|n| view! { <li>{n}</li> }).collect::<Vec<_>>()}</ul>
-        // .collect_view() helper function that allows you to collect any iterator of T: IntoView into Vec<View>.
-        <ul>{values.into_iter().map(|n| view! { <li>{n}</li> }).collect_view()}</ul>
-        <p>"The fact that the list is static doesn’t mean the interface needs to be static. "</p>
-        <ul>{counter_buttons}</ul>
+        <div class="section">
+            <h1 class="title">"Demo iteration: static views and dynamic views"</h1>
+            <div class="container">
+                <h2 class="subtitle">"Static List"</h2>
+                <div class="box">
+                    <p>{values.clone()}</p>
+                </div>
 
-        <h2>"Dynamic List"</h2>
-        <p>"Use this pattern if the rows in your list will change."</p>
-        <DynamicList initial_length=5/>
+                <div class="box">
+                    // or we can wrap them in <li>
+                    <p>"we can wrap them in <li>"</p>
+                    <ul>
+                        {values
+                            .clone()
+                            .into_iter()
+                            .map(|n| view! { <li>{n}</li> })
+                            .collect::<Vec<_>>()}
+                    </ul>
+                    // .collect_view() helper function that allows you to collect any iterator of T: IntoView into Vec<View>.
+                    <ul>{values.into_iter().map(|n| view! { <li>{n}</li> }).collect_view()}</ul>
+
+                </div>
+
+                <div class="box">
+                    <p>
+                        "The fact that the list is static doesn’t mean the interface needs to be static. "
+                    </p>
+                    <ul>{counter_buttons}</ul>
+                </div>
+
+            </div>
+
+            <div class="container">
+                <h2 class="subtitle">"Dynamic List"</h2>
+                <p>"Use this pattern if the rows in your list will change."</p>
+                <div class="box">
+                    <DynamicList initial_length=5/>
+                </div>
+            </div>
+        </div>
     }
 }
 
@@ -81,7 +108,9 @@ fn DynamicList(
 
     view! {
         <div>
-            <button on:click=add_counter>"Add Counter"</button>
+            <button class="button" on:click=add_counter>
+                "Add Counter"
+            </button>
             <ul>
                 // The <For/> component is central here
                 // This allows for efficient, key list rendering
@@ -100,21 +129,27 @@ fn DynamicList(
                     children=move |(id, (count, set_count))| {
                         view! {
                             <li>
-                                <button on:click=move |_| {
-                                    set_count.update(|n| *n += 1)
-                                }>{count}</button>
-                                <button on:click=move |_| {
-                                    set_counters
-                                        .update(|counters| {
-                                            counters
-                                                .retain(|(counter_id, (signal, _))| {
-                                                    if counter_id == &id {
-                                                        signal.dispose();
-                                                    }
-                                                    counter_id != &id
-                                                })
-                                        });
-                                }>
+                                <button
+                                    class="button"
+                                    on:click=move |_| { set_count.update(|n| *n += 1) }
+                                >
+                                    {count}
+                                </button>
+                                <button
+                                    class="button"
+                                    on:click=move |_| {
+                                        set_counters
+                                            .update(|counters| {
+                                                counters
+                                                    .retain(|(counter_id, (signal, _))| {
+                                                        if counter_id == &id {
+                                                            signal.dispose();
+                                                        }
+                                                        counter_id != &id
+                                                    })
+                                            });
+                                    }
+                                >
 
                                     "Remove"
                                 </button>
@@ -157,15 +192,21 @@ pub fn DemoComplexDataIteration() -> impl IntoView {
 
         // when we click, update each row,
         // doubling its value
-        <button on:click=move |_| {
-            set_data
-                .update(|data| {
-                    for row in data {
-                        row.value *= 2;
-                    }
-                });
-            logging::log!("{:?}", data.get());
-        }>"Update Values"</button>
+        <button
+            class="button"
+            on:click=move |_| {
+                set_data
+                    .update(|data| {
+                        for row in data {
+                            row.value *= 2;
+                        }
+                    });
+                logging::log!("{:?}", data.get());
+            }
+        >
+
+            "Update Values"
+        </button>
         <p>"This won't work because each.value is not reactive type"</p>
         <For
             each=data
