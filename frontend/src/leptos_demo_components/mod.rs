@@ -1,3 +1,4 @@
+use crate::tracing::info;
 use leptos::*;
 
 pub mod demo_async;
@@ -14,6 +15,14 @@ pub mod demo_reactivity;
 pub fn LeptosDemoMenu() -> impl IntoView {
     use leptos_router::Outlet;
     use leptos_router::A;
+
+    use leptos_router::use_params_map;
+
+    let params = use_params_map();
+    let demo_name =
+        move || params.with(|params| params.get("demo_name").cloned().unwrap_or_default());
+
+    info!("{}", demo_name().as_str());
 
     view! {
         <div class="columns">

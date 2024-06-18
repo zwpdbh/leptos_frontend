@@ -4,30 +4,32 @@ use leptos::*;
 #[component]
 pub fn DemoParentChildrenCommunication() -> impl IntoView {
     view! {
-        <h1>Demo parent children communication</h1>
-        <p>
-            It is easy for the parent to communicate to the child: pass ReadSignal, or a Signal, or even a MaybeSignal as a prob
-        </p>
-        <p>
-            How can a child send notifications about events or state changes back up to the parent?
-        </p>
+        <div class="section">
+            <h1 class="title">Demo parent children communication</h1>
+            <p>
+                It is easy for the parent to communicate to the child: pass ReadSignal, or a Signal, or even a MaybeSignal as a prob
+            </p>
+            <p>
+                How can a child send notifications about events or state changes back up to the parent?
+            </p>
 
-        <ul>
-            <li>
-                <Approch01/>
-            </li>
+            <ul>
+                <li>
+                    <Approch01/>
+                </li>
 
-            <li>
-                <Approch02/>
-            </li>
-            <li>
-                <Approch03/>
-            </li>
+                <li>
+                    <Approch02/>
+                </li>
+                <li>
+                    <Approch03/>
+                </li>
 
-            <li>
-                <Approch04/>
-            </li>
-        </ul>
+                <li>
+                    <Approch04/>
+                </li>
+            </ul>
+        </div>
     }
 }
 
@@ -35,31 +37,59 @@ pub fn DemoParentChildrenCommunication() -> impl IntoView {
 pub fn Approch01() -> impl IntoView {
     let (toggled, set_toggled) = create_signal(false);
     view! {
-        <p>Pass WriteSignal from parent down to the child</p>
-        <p>"Toggled? " {toggled}</p>
-        <Approch01Child setter=set_toggled/>
+        <div class="container">
+            <p class="subtitle">approch01</p>
+            <p>Pass WriteSignal from parent down to the child</p>
+            <div class="box">
+                <p>"Toggled? " {toggled}</p>
+                <Approch01Child setter=set_toggled/>
+            </div>
+        </div>
     }
 }
 
 #[component]
 pub fn Approch01Child(setter: WriteSignal<bool>) -> impl IntoView {
-    view! { <button on:click=move |_| setter.update(|value| *value = !*value)>"Toggle"</button> }
+    view! {
+        <button class="button" on:click=move |_| setter.update(|value| *value = !*value)>
+            "Toggle"
+        </button>
+    }
 }
 
 #[component]
 pub fn Approch02() -> impl IntoView {
     let (toggled, set_toggled) = create_signal(false);
     view! {
-        <p>Use callbback or closure</p>
-        <p>"Toggled? " {toggled}</p>
-        <Approch02Child on_click=move |_| set_toggled.update(|value| *value = !*value)/>
-        <Approch02ChildV2 on_click=move |_| set_toggled.update(|value| *value = !*value)/>
+        <div class="container ">
+            <p class="subtitle">approch02</p>
+            <p>Use callbback or closure</p>
+            <div class="box">
+                <p>"Toggled? " {toggled}</p>
+                <div class="box">
+                    <p>Approch02v1</p>
+                    <Approch02Child on_click=move |_| set_toggled.update(|value| *value = !*value)/>
+                </div>
+
+                <div class="box">
+                    <p>Approch02v2</p>
+                    <Approch02ChildV2 on_click=move |_| {
+                        set_toggled.update(|value| *value = !*value)
+                    }/>
+                </div>
+
+            </div>
+        </div>
     }
 }
 
 #[component]
 pub fn Approch02Child(#[prop(into)] on_click: Callback<MouseEvent>) -> impl IntoView {
-    view! { <button on:click=on_click>"Toggle"</button> }
+    view! {
+        <button class="button" on:click=on_click>
+            "Toggle"
+        </button>
+    }
 }
 
 #[component]
@@ -67,22 +97,31 @@ pub fn Approch02ChildV2<F>(on_click: F) -> impl IntoView
 where
     F: Fn(MouseEvent) + 'static,
 {
-    view! { <button on:click=on_click>Toggle</button> }
+    view! {
+        <button class="button" on:click=on_click>
+            Toggle
+        </button>
+    }
 }
 
 #[component]
 pub fn Approch03() -> impl IntoView {
     let (toggled, set_toggled) = create_signal(false);
     view! {
-        <p>Use event listener</p>
-        <p>"Toggled? " {toggled}</p>
-        <Approch03Child on:click=move |_| { set_toggled.update(|value| *value = !*value) }/>
+        <div class="container">
+            <p class="subtitle">aproch03</p>
+            <p>Use event listener</p>
+            <div class="box">
+                <p>"Toggled? " {toggled}</p>
+                <Approch03Child on:click=move |_| { set_toggled.update(|value| *value = !*value) }/>
+            </div>
+        </div>
     }
 }
 
 #[component]
 pub fn Approch03Child() -> impl IntoView {
-    view! { <button>"Toggle"</button> }
+    view! { <button class="button">"Toggle"</button> }
 }
 
 #[component]
@@ -93,13 +132,18 @@ pub fn Approch04() -> impl IntoView {
     provide_context(set_toggled);
 
     view! {
-        <p>Providing a context</p>
-        <p>
-            Contexts are identified by the type of the data you provide and they exist in a top-down tree that follows the contours of your UI tree.
-        </p>
-        <p>"Toggled? " {toggled}</p>
+        <div class="container">
+            <p class="subtitle">approch04</p>
+            <p>Providing a context</p>
+            <p>
+                Contexts are identified by the type of the data you provide and they exist in a top-down tree that follows the contours of your UI tree.
+            </p>
+            <div class="box">
+                <p>"Toggled? " {toggled}</p>
 
-        <Approch04Layout/>
+                <Approch04Layout/>
+            </div>
+        </div>
     }
 }
 
@@ -128,5 +172,9 @@ pub fn Approch04Button() -> impl IntoView {
     // find a `WriteSignal<bool>`
     // in this case, I .expect() because I know I provided it
     let setter = use_context::<WriteSignal<bool>>().expect("WriteSignal<bool> provided");
-    view! { <button on:click=move |_| setter.update(|value| *value = !*value)>"Toggle"</button> }
+    view! {
+        <button class="button" on:click=move |_| setter.update(|value| *value = !*value)>
+            "Toggle"
+        </button>
+    }
 }
