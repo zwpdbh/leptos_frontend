@@ -1,3 +1,6 @@
+[serve]
+port = 3002
+
 [watch]
 ignore = ["./style", "./dist", "./target"]
 

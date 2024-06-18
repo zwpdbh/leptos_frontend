@@ -1,32 +1,52 @@
 use leptos::*;
-use leptos_bulma::elements::{BAButton, BButton, BButtons};
-use leptos_bulma::enums::BColor;
 
 fn main() {
     mount_to_body(|| {
-        view! { <div>
-        <p>"Hello, world zhao!"</p>
-            <BasicButtons/>
-        </div>  }
+        view! {
+            <div>
+                <Nav/>
+
+            </div>
+        }
     })
 }
 
 #[component]
-pub fn BasicButtons() -> impl IntoView {
+pub fn Nav() -> impl IntoView {
     view! {
-        <BButtons>
-            <BButton>"Normal button"</BButton>
-            <BAButton href="/elements#button" target="_blank" title="Open in a new tab">
-                "Anchor link button"
-            </BAButton>
-            <BButton is_light=true>"Light button"</BButton>
-            <BButton is_dark=true>"Dark button"</BButton>
-            <BButton is_inverted=true>"Inverted button"</BButton>
-            <BButton is_outlined=true color=BColor::Primary>
-                "Outlined button"
-            </BButton>
-            <BButton is_rounded=true>"Rounded button"</BButton>
-            <BButton is_fullwidth=true>"Fullwidth button"</BButton>
-        </BButtons>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand"></div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item">Home</a>
+
+                    <a class="navbar-item">Documentation</a>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">More</a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">About</a>
+                            <a class="navbar-item is-selected">Jobs</a>
+                            <a class="navbar-item">Contact</a>
+                            <hr class="navbar-divider"/>
+                            <a class="navbar-item">Report an issue</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-light">Log in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
     }
 }

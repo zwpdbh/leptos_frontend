@@ -19,8 +19,8 @@ web-sys = { version = "0.3", features = ["Document", "Window"] }
 
 
 [package.metadata.leptos]
-# On which port to serve the client side rendered site (when using --csr option)
-csr_port = 8000
+# # On which port to serve the client side rendered site (when using --csr option)
+# csr_port = 3003
 # The port to use for automatic reload monitoring
 reload_port = 3001
 # Path, relative to root, to generat rust code to

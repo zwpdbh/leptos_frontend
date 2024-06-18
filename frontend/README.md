@@ -50,7 +50,25 @@ reload_port = 3001
   ```
 
 - Follow [How to Install in Leptos CSR (Trunk)](https://leptos-bulma.fermyon.app/guides#how-to-install-csr)
+  - In `frontend` project folder, run `cargo run --bin  build-leptos-bulma`.
+  - Run `trunk serve`.
+  - Then, edit `Trunk.toml`:
 
+  ```toml
+  [serve]
+  port = 3002
+
+  [watch]
+  ignore = ["./style", "./dist", "./target"]
+
+  [[hooks]]
+  stage = "pre_build"
+  command = "cargo"
+  command_arguments = ["run", "--bin", "build-leptos-bulma"]
+  ```
+
+  At last, visit `http://localhost:3002/`.
+  
 ## References
 
 - [Letpos CSR](https://book.leptos.dev/getting_started/index.html)
