@@ -167,7 +167,7 @@ pub fn FormExample() -> impl IntoView {
 }
 
 #[component]
-fn ContactList() -> impl IntoView {
+pub fn ContactList() -> impl IntoView {
     view! {
         <div class="container box">
             <div class="contact-list">
@@ -190,8 +190,7 @@ fn ContactList() -> impl IntoView {
                 </div>
 
                 // <Outlet/> will show the nested child route
-                // we can position this outlet wherever we want
-                // within the layout
+                // we can position this outlet wherever we want within the layout
                 <Outlet/>
             </div>
         </div>
@@ -199,7 +198,7 @@ fn ContactList() -> impl IntoView {
 }
 
 #[component]
-fn ContactInfo() -> impl IntoView {
+pub fn ContactInfo() -> impl IntoView {
     // we can access the :id param reactively with `use_params_map`.
     let params = use_params_map();
     let id = move || params.with(|params| params.get("id").cloned().unwrap_or_default());

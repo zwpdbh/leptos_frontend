@@ -111,13 +111,68 @@ fn App() -> impl IntoView {
                                 <Route
                                     path=""
                                     view=|| {
-                                        view! {
-                                            // This is necessary and need to be set to empty because
-                                            // it represent the default further subview for /demos/xxx/(furhter_subview).
-                                            <div></div>
+                                        let menu = use_context::<ReadSignal<LeptosDemoMenu>>()
+                                            .expect("ReadSignal<LeptosDemoMenu> provided");
+                                        match menu().demo_name().as_str() {
+                                            "demo_nested_route" => {
+                                                view! {
+                                                    <div>
+                                                        <p class="subtitle">
+                                                            "Select to further check nested route"
+                                                        </p>
+                                                    </div>
+                                                }
+                                            }
+                                            _ => {
+                                                view! {
+                                                    // Get the context for the setter
+
+                                                    // This is necessary and need to be set to empty because
+                                                    // it represent the default further subview for /demos/xxx/(furhter_subview).
+                                                    <div></div>
+                                                }
+                                            }
                                         }
                                     }
                                 />
+
+                                <Route
+                                    path="home"
+                                    view=|| {
+                                        view! {
+                                            <div class="container box">
+                                                <h3>"Nested Route Home"</h3>
+                                            </div>
+                                        }
+                                    }
+                                />
+
+                                <Route path="contacts" view=demo_nested_route::ContactList>
+                                    // if no id specified, fall back
+                                    <Route path=":id" view=demo_nested_route::ContactInfo>
+                                        <Route
+                                            path=""
+                                            view=|| view! { <div class="tab">"(Contact Info)"</div> }
+                                        />
+                                        <Route
+                                            path="conversations"
+                                            view=|| view! { <div class="tab">"(Conversations)"</div> }
+                                        />
+                                    </Route>
+                                    // if no id specified, fall back
+                                    <Route
+                                        path=""
+                                        view=|| {
+                                            view! {
+                                                <div class="select-user">
+                                                    "Select a user to view contact info."
+                                                </div>
+                                            }
+                                        }
+                                    />
+
+                                </Route>
+                                <Route path="form_example" view=demo_nested_route::FormExample/>
 
                                 <RoutesForDemoNestedRoute/>
                             </Route>
