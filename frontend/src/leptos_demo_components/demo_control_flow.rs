@@ -61,10 +61,10 @@ pub fn Demo02() -> impl IntoView {
 
     let message = move || {
         if value() > 5 {
-            logging::log!("{}: rendering Big", value());
+            logging::log!("demo_control_flow Demo02 => {}: rendering Big", value());
             "Big"
         } else {
-            logging::log!("{}: rendering Small", value());
+            logging::log!("demo_control_flow Demo02 =>{}: rendering Small", value());
             "Small"
         }
     };
