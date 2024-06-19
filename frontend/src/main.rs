@@ -18,8 +18,9 @@ fn App() -> impl IntoView {
     provide_context(set_menu);
     provide_context(menu);
 
+    let read_demo_name = move || menu().demo_name;
     view! {
-        <p>"current menu: " {move || { menu().demo_name }}</p>
+        <p>"current menu: " {read_demo_name}</p>
         <Router>
             <header>
                 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -111,8 +112,7 @@ fn App() -> impl IntoView {
                                 <Route
                                     path=""
                                     view=move || {
-                                        let menu_value = menu.get();
-                                        let demo_name = menu_value.demo_name.clone();
+                                        let demo_name = read_demo_name();
                                         match demo_name.as_str() {
                                             "demo_nested_route" => {
                                                 view! {
