@@ -39,7 +39,10 @@
   "rust-analyzer.inlayHints.parameterHints.enable": true,
   "rust-analyzer.inlayHints.chainingHints.enable": true,
   "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
-  "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "always",
+  "rust-analyzer.inlayHints.closureCaptureHints.enable": true,
+  "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "skip_trivial",
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "rust-analyzer.inlayHints.expressionAdjustmentHints.enable": "never",
   "rust-analyzer.showUnlinkedFileNotification": false,
   "rust-analyzer.cargo.features": [],
   "rust-analyzer.procMacro.ignored": {
