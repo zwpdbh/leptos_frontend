@@ -3,7 +3,6 @@ mod leptos_demo_components;
 
 use crate::demo_nested_route::RoutesForDemoNestedRoute;
 use bulma_playground::*;
-use leptos::logging::log;
 use leptos::*;
 use leptos_demo_components::*;
 use leptos_router::*;
