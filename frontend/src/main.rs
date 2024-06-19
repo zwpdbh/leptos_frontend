@@ -77,6 +77,24 @@ fn App() -> impl IntoView {
                         >
 
                             <Route
+                                path=""
+                                view=|| {
+                                    let setter = use_context::<WriteSignal<LeptosDemoMenu>>()
+                                        .expect("WriteSignal<LeptosDemoMenu> provided");
+                                    setter
+                                        .update(|value| {
+                                            *value = LeptosDemoMenu::new("");
+                                        });
+                                    view! {
+                                        <div>
+                                            <p>"This is the default view for /demos"</p>
+                                            <p>"Select a demo to see detail"</p>
+                                        </div>
+                                    }
+                                }
+                            />
+
+                            <Route
                                 path=":demo_name"
                                 view=|| {
                                     view! {
@@ -101,13 +119,6 @@ fn App() -> impl IntoView {
                                 <RoutesForDemoNestedRoute/>
 
                             </Route>
-
-                            <Route
-                                path=""
-                                view=|| {
-                                    view! { <div>"Select a demo to see the details."</div> }
-                                }
-                            />
 
                         </Route>
                         <Route path="/*any" view=|| view! { <h1>"Route Not Found"</h1> }/>
