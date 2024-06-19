@@ -120,7 +120,6 @@ pub fn LeptosDemoContent() -> impl IntoView {
         setter.update(|value| {
             *value = LeptosDemoMenu::new(demo_name().as_str());
         });
-        log!("{}", demo_name().as_str())
     });
 
     let component = move || match demo_name().as_str() {

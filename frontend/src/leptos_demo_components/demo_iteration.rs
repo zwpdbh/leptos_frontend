@@ -201,7 +201,6 @@ pub fn DemoComplexDataIteration() -> impl IntoView {
                             row.value *= 2;
                         }
                     });
-                logging::log!("{:?}", data.get());
             }
         >
 

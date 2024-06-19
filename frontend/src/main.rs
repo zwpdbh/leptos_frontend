@@ -3,6 +3,7 @@ mod leptos_demo_components;
 
 use crate::demo_nested_route::RoutesForDemoNestedRoute;
 use bulma_playground::*;
+use leptos::logging::log;
 use leptos::*;
 use leptos_demo_components::*;
 use leptos_router::*;
@@ -112,14 +113,16 @@ fn App() -> impl IntoView {
                                 <Route
                                     path=""
                                     view=move || {
-                                        let demo_name = read_demo_name();
-                                        match demo_name.as_str() {
+                                        let demo_name = move || {
+                                            let demo_name = read_demo_name();
+                                            log!("in route: {demo_name}");
+                                            demo_name
+                                        };
+                                        match demo_name().as_str() {
                                             "demo_nested_route" => {
                                                 view! {
                                                     <div>
-                                                        <p class="subtitle">
-                                                            "This is the default view for /demos/demo_nested_route. A"
-                                                        </p>
+                                                        <p class="subtitle">A: "/demos/" {demo_name}</p>
                                                     </div>
                                                 }
                                             }
@@ -128,9 +131,7 @@ fn App() -> impl IntoView {
                                                     // This is necessary and need to be set to empty because
                                                     // it represent the default further subview for /demos/xxx/(furhter_subview).
                                                     <div>
-                                                        <p class="subtitle">
-                                                            This is the previous view param: /demos/ {demo_name}
-                                                        </p>
+                                                        <p class="subtitle">B: "/demos/" {demo_name}</p>
                                                     </div>
                                                 }
                                             }
