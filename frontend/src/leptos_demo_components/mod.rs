@@ -1,4 +1,5 @@
 use leptos::*;
+use leptos_dom::{log, logging};
 
 use super::demo_async::DemoAsync;
 use super::demo_basics::{BasicComponent, ComponentsAndProps};
@@ -120,7 +121,8 @@ pub fn LeptosDemoContent() -> impl IntoView {
     create_effect(move |_| {
         setter.update(|value| {
             *value = LeptosDemoMenu::new(demo_name().as_str());
-        })
+        });
+        log!("{}", demo_name().as_str())
     });
 
     let component = move || match demo_name().as_str() {

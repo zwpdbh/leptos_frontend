@@ -1,3 +1,5 @@
+use crate::LeptosDemoMenu;
+use leptos::logging::log;
 use leptos::*;
 use leptos_router::*;
 
