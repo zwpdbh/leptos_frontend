@@ -47,7 +47,7 @@ pub fn RoutesForDemoNestedRoute() -> impl IntoView {
 pub fn DemoNestedRoute() -> impl IntoView {
     view! {
         <div class="section">
-            <h3 class="title">Demo nested route</h3>
+            <h3 class="title">"Demo nested route"</h3>
 
             <div class="menu">
                 <ul class="menu-list">
@@ -63,10 +63,10 @@ pub fn DemoNestedRoute() -> impl IntoView {
                 </ul>
             </div>
 
-            // <Outlet/> will show the nested child route
-            // we can position this outlet wherever we want
-            // within the layout
-            <Outlet/>
+        // // <Outlet/> will show the nested child route
+        // // we can position this outlet wherever we want
+        // // within the layout
+        // <Outlet/>
         </div>
     }
 }

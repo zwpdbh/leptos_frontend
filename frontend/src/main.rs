@@ -1,6 +1,7 @@
 mod bulma_playground;
 mod leptos_demo_components;
 
+use crate::demo_nested_route::RoutesForDemoNestedRoute;
 use bulma_playground::*;
 use leptos::*;
 use leptos_demo_components::*;
@@ -96,6 +97,8 @@ fn App() -> impl IntoView {
                                         }
                                     }
                                 />
+
+                                <RoutesForDemoNestedRoute/>
 
                             </Route>
 
