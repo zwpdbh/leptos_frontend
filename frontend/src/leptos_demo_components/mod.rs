@@ -97,23 +97,21 @@ struct LeptosDemoParams {
 
 #[component]
 pub fn LeptosDemoContent() -> impl IntoView {
-    use leptos_router::use_params;
-
-    let params = use_params::<LeptosDemoParams>();
-    let demo_name = move || {
-        params.with(|params| {
-            params
-                .as_ref()
-                .map(|params| params.demo_name.clone())
-                .unwrap_or_default()
-        })
-    };
-
+    // Get the context for the setter
     let setter =
         use_context::<WriteSignal<LeptosMenu>>().expect("WriteSignal<LeptosMenu> provided");
 
-    logging::log!("LeptosDemoContent => demo name: {}", demo_name().as_str());
-    setter.update(|value| (*value).demo_name = demo_name());
+    // Get the route parameters
+    let params = leptos_router::use_params_map();
+    let demo_name =
+        move || params.with(|params| params.get("demo_name").cloned().unwrap_or_default());
+
+    // Update the setter when the demo name changes
+    create_effect(move |_| {
+        logging::log!("LeptosDemoContent => demo name: {}", demo_name());
+        setter.update(|value| (*value).demo_name = demo_name());
+        setter.update(|value| value.demo_name = demo_name());
+    });
 
     let component = move || match demo_name().as_str() {
         "basic_component" => view! { <BasicComponent/> },
