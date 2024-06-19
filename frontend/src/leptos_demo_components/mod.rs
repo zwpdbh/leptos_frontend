@@ -8,6 +8,7 @@ use super::demo_error_handling::DemoErrorHandling;
 use super::demo_form_and_input::DemoFormAndInput;
 use super::demo_iteration::DemoBasicIteration;
 use super::demo_nested_route::DemoNestedRoute;
+use super::demo_nested_route::RoutesForDemoNestedRoute;
 use super::demo_parent_children_communication::DemoParentChildrenCommunication;
 use super::demo_reactivity::DemoReactivity;
 
@@ -127,23 +128,63 @@ pub fn LeptosDemoContent() -> impl IntoView {
     });
 
     let component = move || match demo_name().as_str() {
-        "basic_component" => view! { <BasicComponent/> },
-        "components_and_pros" => view! { <ComponentsAndProps/> },
-        "demo_basic_iteration" => view! { <DemoBasicIteration/> },
-        "demo_form_and_input" => view! { <DemoFormAndInput/> },
-        "demo_error_handling" => view! { <DemoErrorHandling/> },
-        "demo_reactivity" => view! { <DemoReactivity/> },
-        "demo_parent_children_communication" => view! { <DemoParentChildrenCommunication/> },
-        "demo_async" => view! { <DemoAsync/> },
-        "control_flow" => view! { <DemoControlFlow/> },
-        "demo_nested_route" => view! { <DemoNestedRoute/> },
-        _ => view! { <MessageComponent/> },
+        "basic_component" => view! {
+            <div>
+                <BasicComponent/>
+            </div>
+        },
+        "components_and_pros" => view! {
+            <div>
+                <ComponentsAndProps/>
+            </div>
+        },
+        "demo_basic_iteration" => view! {
+            <div>
+                <DemoBasicIteration/>
+            </div>
+        },
+        "demo_form_and_input" => view! {
+            <div>
+                <DemoFormAndInput/>
+            </div>
+        },
+        "demo_error_handling" => view! {
+            <div>
+                <DemoErrorHandling/>
+            </div>
+        },
+        "demo_reactivity" => view! {
+            <div>
+                <DemoReactivity/>
+            </div>
+        },
+        "demo_parent_children_communication" => view! {
+            <div>
+                <DemoParentChildrenCommunication/>
+            </div>
+        },
+        "demo_async" => view! {
+            <div>
+                <DemoAsync/>
+            </div>
+        },
+        "control_flow" => view! {
+            <div>
+                <DemoControlFlow/>
+            </div>
+        },
+        "demo_nested_route" => view! {
+            <div>
+                <DemoNestedRoute/>
+            // <RoutesForDemoNestedRoute/>
+            </div>
+        },
+        _ => view! {
+            <div>
+                <p class="subtitle">"ComponentNotFound"</p>
+            </div>
+        },
     };
 
     component.into_view()
-}
-
-#[component]
-pub fn MessageComponent() -> impl IntoView {
-    view! { <p>"ComponentNotFound"</p> }
 }

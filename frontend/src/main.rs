@@ -99,26 +99,27 @@ fn App() -> impl IntoView {
                                 view=|| {
                                     view! {
                                         <div>
+                                            // This is needed because "/demos/xxx" matches two parts:
+                                            // 1) is the /demos which shows the LeptosDemoMenu.
+                                            // 2) is the /demos/xxx which is LeptosDemoContent
                                             <LeptosDemoContent/>
                                         </div>
                                     }
                                 }
-                            >
+                            />
 
-                                <Route
-                                    path=""
-                                    view=|| {
-                                        view! {
-                                            <div>
-                                                <LeptosDemoContent/>
-                                            </div>
-                                        }
-                                    }
-                                />
+                        // <Route
+                        // path=""
+                        // view=|| {
+                        // view! {
+                        // <div>
+                        // <LeptosDemoContent/>
+                        // </div>
+                        // }
+                        // }
+                        // />
 
-                                <RoutesForDemoNestedRoute/>
-
-                            </Route>
+                        // <RoutesForDemoNestedRoute/>
 
                         </Route>
                         <Route path="/*any" view=|| view! { <h1>"Route Not Found"</h1> }/>
