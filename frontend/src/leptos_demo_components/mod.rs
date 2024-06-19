@@ -1,5 +1,4 @@
 use leptos::*;
-use leptos_router::Params;
 
 use super::demo_async::DemoAsync;
 use super::demo_basics::{BasicComponent, ComponentsAndProps};
@@ -21,13 +20,13 @@ pub mod demo_parent_children_communication;
 pub mod demo_reactivity;
 
 #[derive(Clone)]
-pub struct LeptosMenu {
+pub struct LeptosDemoMenu {
     demo_name: String,
 }
 
-impl LeptosMenu {
+impl LeptosDemoMenu {
     pub fn new(demo_name: &str) -> Self {
-        LeptosMenu {
+        LeptosDemoMenu {
             demo_name: demo_name.to_string(),
         }
     }
@@ -41,10 +40,20 @@ pub fn LeptosDemoMenu() -> impl IntoView {
     use leptos_router::Outlet;
     use leptos_router::A;
 
-    let (menu, set_menu) = create_signal(LeptosMenu {
-        demo_name: "".to_string(),
-    });
-    provide_context(set_menu);
+    // Get the context for the setter
+    let menu =
+        use_context::<ReadSignal<LeptosDemoMenu>>().expect("ReadSignal<LeptosDemoMenu> provided");
+
+    // let menu_memo = create_memo(move |_| menu().demo_name);
+
+    // // Update the setter when the demo name changes
+    // create_effect(move |_| {
+    //     logging::log!(
+    //         "LeptosDemoMenu is selected to be => demo name: {}",
+    //         menu_memo()
+    //     );
+    // });
+    let selected_menu = move |path: &str| menu().demo_name == path;
 
     let menu_items: Vec<(&str, &str)> = vec![
         ("basic_component", "basic components"),
@@ -71,20 +80,12 @@ pub fn LeptosDemoMenu() -> impl IntoView {
                     {menu_items
                         .into_iter()
                         .map(move |(path, label)| {
-                            logging::log!(
-                                "LeptosDemoMenu is selected to be => demo name: {}", menu.get()
-                                .demo_name
-                            );
-                            let menu = menu();
-                            let active_class: &str = if menu.demo_name == path {
+                            let active_class: &str = if selected_menu(path) {
                                 "is-active"
                             } else {
                                 ""
                             };
                             view! {
-                                // let active_class = move || {
-                                // if leptos_menu.demo_name == path { "is-active" } else { "" }
-                                // };
                                 <li>
                                     <A class=active_class href=path>
                                         {(*label).to_string()}
@@ -111,19 +112,17 @@ pub fn LeptosDemoMenu() -> impl IntoView {
 pub fn LeptosDemoContent() -> impl IntoView {
     // Get the context for the setter
     let setter =
-        use_context::<WriteSignal<LeptosMenu>>().expect("WriteSignal<LeptosMenu> provided");
+        use_context::<WriteSignal<LeptosDemoMenu>>().expect("WriteSignal<LeptosDemoMenu> provided");
 
     // Get the route parameters
     let params = leptos_router::use_params_map();
     let demo_name =
         move || params.with(|params| params.get("demo_name").cloned().unwrap_or_default());
 
-    // Update the setter when the demo name changes
     create_effect(move |_| {
         setter.update(|value| {
-            *value = LeptosMenu::new(demo_name().as_str());
-            logging::log!("LeptosDemoContent changed => {}", demo_name())
-        });
+            *value = LeptosDemoMenu::new(demo_name().as_str());
+        })
     });
 
     let component = move || match demo_name().as_str() {

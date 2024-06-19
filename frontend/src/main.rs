@@ -14,8 +14,9 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
-    let (menu, set_menu) = create_signal(LeptosMenu::new(""));
+    let (menu, set_menu) = create_signal(LeptosDemoMenu::new(""));
     provide_context(set_menu);
+    provide_context(menu);
 
     view! {
         <p>"current menu: " {move || { menu().demo_name() }}</p>
