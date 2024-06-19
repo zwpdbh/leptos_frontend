@@ -1,5 +1,5 @@
 use leptos::*;
-use leptos_dom::{log, logging};
+use leptos_dom::log;
 
 use super::demo_async::DemoAsync;
 use super::demo_basics::{BasicComponent, ComponentsAndProps};
@@ -7,6 +7,7 @@ use super::demo_control_flow::DemoControlFlow;
 use super::demo_error_handling::DemoErrorHandling;
 use super::demo_form_and_input::DemoFormAndInput;
 use super::demo_iteration::DemoBasicIteration;
+use super::demo_nested_route::DemoNestedRoute;
 use super::demo_parent_children_communication::DemoParentChildrenCommunication;
 use super::demo_reactivity::DemoReactivity;
 
@@ -135,6 +136,7 @@ pub fn LeptosDemoContent() -> impl IntoView {
         "demo_parent_children_communication" => view! { <DemoParentChildrenCommunication/> },
         "demo_async" => view! { <DemoAsync/> },
         "control_flow" => view! { <DemoControlFlow/> },
+        "demo_nested_route" => view! { <DemoNestedRoute/> },
         _ => view! { <MessageComponent/> },
     };
 

@@ -1,15 +1,13 @@
-use crate::LeptosDemoMenu;
-use leptos::logging::log;
 use leptos::*;
 use leptos_router::*;
 
 #[component(transparent)]
 pub fn RoutesForDemoNestedRoute() -> impl IntoView {
     view! {
-        <Route path="demo_nested_route" view=DemoNestedRoute>
-
+        <Route path=":demo_nested_route" view=DemoNestedRoute>
+            <Route path="" view=|| view! { <p>"Select to see more"</p> }/>
             <Route
-                path="home"
+                path=":home"
                 view=|| {
                     view! {
                         <div class="container box">
@@ -19,7 +17,7 @@ pub fn RoutesForDemoNestedRoute() -> impl IntoView {
                 }
             />
 
-            <Route path="contacts" view=ContactList>
+            <Route path=":contacts" view=ContactList>
                 // if no id specified, fall back
                 <Route path=":id" view=ContactInfo>
                     <Route path="" view=|| view! { <div class="tab">"(Contact Info)"</div> }/>
@@ -39,9 +37,37 @@ pub fn RoutesForDemoNestedRoute() -> impl IntoView {
                 />
 
             </Route>
-            <Route path="form_example" view=FormExample/>
-            <Route path="" view=|| view! { <p>"Select to see more"</p> }/>
+            <Route path=":form_example" view=FormExample/>
+
         </Route>
+    }
+}
+
+#[component]
+pub fn DemoNestedRoute() -> impl IntoView {
+    view! {
+        <div class="section">
+            <h3 class="title">Demo nested route</h3>
+
+            <div class="menu">
+                <ul class="menu-list">
+                    <li>
+                        <A href="home">"Demo route home"</A>
+                    </li>
+                    <li>
+                        <A href="contacts">"Contacts"</A>
+                    </li>
+                    <li>
+                        <A href="form_example">"Form Example"</A>
+                    </li>
+                </ul>
+            </div>
+
+            // <Outlet/> will show the nested child route
+            // we can position this outlet wherever we want
+            // within the layout
+            <Outlet/>
+        </div>
     }
 }
 
@@ -142,34 +168,6 @@ pub fn FormExample() -> impl IntoView {
 }
 
 #[component]
-pub fn DemoNestedRoute() -> impl IntoView {
-    view! {
-        <div class="section">
-            <h3 class="title">Demo nested route</h3>
-
-            <div class="menu">
-                <ul class="menu-list">
-                    <li>
-                        <A href="home">"Demo route home"</A>
-                    </li>
-                    <li>
-                        <A href="contacts">"Contacts"</A>
-                    </li>
-                    <li>
-                        <A href="form_example">"Form Example"</A>
-                    </li>
-                </ul>
-            </div>
-
-            // <Outlet/> will show the nested child route
-            // we can position this outlet wherever we want
-            // within the layout
-            <Outlet/>
-        </div>
-    }
-}
-
-#[component]
 fn ContactList() -> impl IntoView {
     view! {
         <div class="container box">
@@ -231,6 +229,3 @@ fn ContactInfo() -> impl IntoView {
         </div>
     }
 }
-
-#[component]
-pub fn DemoNestRoute() -> impl IntoView {}

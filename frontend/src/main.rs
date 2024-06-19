@@ -3,7 +3,6 @@ mod leptos_demo_components;
 
 use bulma_playground::*;
 use leptos::*;
-use leptos_demo_components::demo_nested_route::*;
 use leptos_demo_components::*;
 use leptos_router::*;
 
@@ -76,7 +75,6 @@ fn App() -> impl IntoView {
                             }
                         >
 
-                            <RoutesForDemoNestedRoute/>
                             <Route
                                 path=":demo_name"
                                 view=|| {
@@ -109,7 +107,7 @@ fn App() -> impl IntoView {
                             />
 
                         </Route>
-                        <Route path="/*any" view=|| view! { <h1>"Not Found"</h1> }/>
+                        <Route path="/*any" view=|| view! { <h1>"Route Not Found"</h1> }/>
                     </Routes>
                 // all our routes will appear inside <main>
 
