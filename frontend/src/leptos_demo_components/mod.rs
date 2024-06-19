@@ -26,7 +26,7 @@ pub struct LeptosMenu {
 }
 
 #[component]
-pub fn LeptosDemoMenu() -> impl IntoView {
+pub fn LeptosDemoMenu(menu: ReadSignal<LeptosMenu>) -> impl IntoView {
     use leptos_router::Outlet;
     use leptos_router::A;
 
@@ -46,10 +46,7 @@ pub fn LeptosDemoMenu() -> impl IntoView {
         ("demo_nested_route", "demo nested route"),
     ];
 
-    logging::log!(
-        "LeptosDemoMenu => demo name: {}",
-        leptos_menu.get().demo_name
-    );
+    logging::log!("LeptosDemoMenu => demo name: {}", menu.get().demo_name);
 
     view! {
         <div class="columns">
@@ -60,7 +57,7 @@ pub fn LeptosDemoMenu() -> impl IntoView {
                     {menu_items
                         .into_iter()
                         .map(|(path, label)| {
-                            let menu: LeptosMenu = leptos_menu.get();
+                            let menu: LeptosMenu = menu.get();
                             logging::log!("demo name in LeptosDemoMenu: {}", menu.demo_name);
                             let active_class: &str = if menu.demo_name == path {
                                 "is-active"

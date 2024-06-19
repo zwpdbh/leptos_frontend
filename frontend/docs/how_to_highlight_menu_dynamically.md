@@ -83,3 +83,11 @@ pub fn LeptosDemoMenu() -> impl IntoView {
 3. **Conditionally apply the `is-active` class**: The `active_class` variable is assigned `"is-active"` if the route matches, otherwise an empty string. This class is then conditionally added to the `<A>` element.
 
 This approach dynamically highlights the active menu item based on the current route, enhancing the navigation experience by indicating the currently selected demo.
+
+
+## Error01: outside a reactive tracking context
+
+```txt
+frontend-30d44f4e303d1579.js:913  At frontend/src/leptos_demo_components/mod.rs:104:16, you access a signal or memo (defined at frontend/src/leptos_demo_components/mod.rs:102:18) outside a reactive tracking context. This might mean your app is not responding to changes in signal values in the way you expect.
+```
+

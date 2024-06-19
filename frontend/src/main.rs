@@ -67,10 +67,10 @@ fn App() -> impl IntoView {
                         <Route path="/" view=HomePageDiv/>
                         <Route
                             path="/demos"
-                            view=|| {
+                            view=move || {
                                 view! {
                                     <div class="bd-docs-menu">
-                                        <LeptosDemoMenu/>
+                                        <LeptosDemoMenu menu=leptos_menu/>
                                     </div>
                                 }
                             }
