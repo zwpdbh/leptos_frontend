@@ -4,10 +4,9 @@ use leptos_router::*;
 #[component(transparent)]
 pub fn RoutesForDemoNestedRoute() -> impl IntoView {
     view! {
-        <Route path=":demo_nested_route" view=DemoNestedRoute>
-            <Route path="" view=|| view! { <p>"Select to see more"</p> }/>
+        <Route path="" view=|| view! { <p>"Select to see more"</p> }>
             <Route
-                path=":home"
+                path="home"
                 view=|| {
                     view! {
                         <div class="container box">
@@ -17,7 +16,7 @@ pub fn RoutesForDemoNestedRoute() -> impl IntoView {
                 }
             />
 
-            <Route path=":contacts" view=ContactList>
+            <Route path="contacts" view=ContactList>
                 // if no id specified, fall back
                 <Route path=":id" view=ContactInfo>
                     <Route path="" view=|| view! { <div class="tab">"(Contact Info)"</div> }/>
@@ -37,7 +36,7 @@ pub fn RoutesForDemoNestedRoute() -> impl IntoView {
                 />
 
             </Route>
-            <Route path=":form_example" view=FormExample/>
+            <Route path="form_example" view=FormExample/>
 
         </Route>
     }
@@ -63,10 +62,10 @@ pub fn DemoNestedRoute() -> impl IntoView {
                 </ul>
             </div>
 
-        // // <Outlet/> will show the nested child route
-        // // we can position this outlet wherever we want
-        // // within the layout
-        // <Outlet/>
+            // <Outlet/> will show the nested child route
+            // we can position this outlet wherever we want
+            // within the layout
+            <Outlet/>
         </div>
     }
 }
