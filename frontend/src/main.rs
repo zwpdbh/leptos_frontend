@@ -106,20 +106,21 @@ fn App() -> impl IntoView {
                                         </div>
                                     }
                                 }
-                            />
+                            >
 
-                        // <Route
-                        // path=""
-                        // view=|| {
-                        // view! {
-                        // <div>
-                        // <LeptosDemoContent/>
-                        // </div>
-                        // }
-                        // }
-                        // />
+                                <Route
+                                    path=""
+                                    view=|| {
+                                        view! {
+                                            // This is necessary and need to be set to empty because
+                                            // it represent the default further subview for /demos/xxx/(furhter_subview).
+                                            <div></div>
+                                        }
+                                    }
+                                />
 
-                        // <RoutesForDemoNestedRoute/>
+                                <RoutesForDemoNestedRoute/>
+                            </Route>
 
                         </Route>
                         <Route path="/*any" view=|| view! { <h1>"Route Not Found"</h1> }/>
