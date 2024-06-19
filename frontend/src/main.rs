@@ -14,12 +14,11 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
-    let (leptos_menu, set_leptos_menu) = create_signal(LeptosMenu {
-        demo_name: "".to_string(),
-    });
-    provide_context(set_leptos_menu);
+    let (menu, set_menu) = create_signal(LeptosMenu::new(""));
+    provide_context(set_menu);
 
     view! {
+        <p>"current menu: " {move || { menu().demo_name() }}</p>
         <Router>
             <header>
                 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -70,7 +69,7 @@ fn App() -> impl IntoView {
                             view=move || {
                                 view! {
                                     <div class="bd-docs-menu">
-                                        <LeptosDemoMenu menu=leptos_menu/>
+                                        <LeptosDemoMenu/>
                                     </div>
                                 }
                             }

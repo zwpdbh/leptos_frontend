@@ -22,13 +22,29 @@ pub mod demo_reactivity;
 
 #[derive(Clone)]
 pub struct LeptosMenu {
-    pub demo_name: String,
+    demo_name: String,
+}
+
+impl LeptosMenu {
+    pub fn new(demo_name: &str) -> Self {
+        LeptosMenu {
+            demo_name: demo_name.to_string(),
+        }
+    }
+    pub fn demo_name(self) -> String {
+        self.demo_name
+    }
 }
 
 #[component]
-pub fn LeptosDemoMenu(menu: ReadSignal<LeptosMenu>) -> impl IntoView {
+pub fn LeptosDemoMenu() -> impl IntoView {
     use leptos_router::Outlet;
     use leptos_router::A;
+
+    let (menu, set_menu) = create_signal(LeptosMenu {
+        demo_name: "".to_string(),
+    });
+    provide_context(set_menu);
 
     let menu_items: Vec<(&str, &str)> = vec![
         ("basic_component", "basic components"),
@@ -46,8 +62,6 @@ pub fn LeptosDemoMenu(menu: ReadSignal<LeptosMenu>) -> impl IntoView {
         ("demo_nested_route", "demo nested route"),
     ];
 
-    logging::log!("LeptosDemoMenu => demo name: {}", menu.get().demo_name);
-
     view! {
         <div class="columns">
             <div class="menu column is-one-fifth">
@@ -56,9 +70,12 @@ pub fn LeptosDemoMenu(menu: ReadSignal<LeptosMenu>) -> impl IntoView {
 
                     {menu_items
                         .into_iter()
-                        .map(|(path, label)| {
-                            let menu: LeptosMenu = menu.get();
-                            logging::log!("demo name in LeptosDemoMenu: {}", menu.demo_name);
+                        .map(move |(path, label)| {
+                            logging::log!(
+                                "LeptosDemoMenu is selected to be => demo name: {}", menu.get()
+                                .demo_name
+                            );
+                            let menu = menu();
                             let active_class: &str = if menu.demo_name == path {
                                 "is-active"
                             } else {
@@ -90,11 +107,6 @@ pub fn LeptosDemoMenu(menu: ReadSignal<LeptosMenu>) -> impl IntoView {
     }
 }
 
-#[derive(Params, PartialEq)]
-struct LeptosDemoParams {
-    demo_name: String,
-}
-
 #[component]
 pub fn LeptosDemoContent() -> impl IntoView {
     // Get the context for the setter
@@ -108,9 +120,10 @@ pub fn LeptosDemoContent() -> impl IntoView {
 
     // Update the setter when the demo name changes
     create_effect(move |_| {
-        logging::log!("LeptosDemoContent => demo name: {}", demo_name());
-        setter.update(|value| (*value).demo_name = demo_name());
-        setter.update(|value| value.demo_name = demo_name());
+        setter.update(|value| {
+            *value = LeptosMenu::new(demo_name().as_str());
+            logging::log!("LeptosDemoContent changed => {}", demo_name())
+        });
     });
 
     let component = move || match demo_name().as_str() {
