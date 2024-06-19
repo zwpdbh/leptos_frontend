@@ -79,6 +79,12 @@ pub fn LeptosDemoMenu() -> impl IntoView {
                         .map(move |(path, label)| {
                             view! {
                                 <li>
+                                    // Be careful about this: whenever we use signal to acheive reactivity, we need to use to use closure
+                                    // This is not working:
+                                    // <A class=selected_menu_class(path) href=path>
+                                    // {(*label).to_string()}
+                                    // </A>
+                                    // Because selected_menu_class(path) give us a value not a closure!
                                     <A class=move || { selected_menu_class(path) } href=path>
                                         {(*label).to_string()}
                                     </A>
