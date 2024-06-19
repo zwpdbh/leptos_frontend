@@ -44,17 +44,6 @@ pub fn LeptosDemoMenu() -> impl IntoView {
     let menu =
         use_context::<ReadSignal<LeptosDemoMenu>>().expect("ReadSignal<LeptosDemoMenu> provided");
 
-    // let menu_memo = create_memo(move |_| menu().demo_name);
-
-    // // Update the setter when the demo name changes
-    // create_effect(move |_| {
-    //     logging::log!(
-    //         "LeptosDemoMenu is selected to be => demo name: {}",
-    //         menu_memo()
-    //     );
-    // });
-    let selected_menu = move |path: &str| menu().demo_name == path;
-
     let menu_items: Vec<(&str, &str)> = vec![
         ("basic_component", "basic components"),
         ("components_and_pros", "components and props"),
@@ -71,6 +60,14 @@ pub fn LeptosDemoMenu() -> impl IntoView {
         ("demo_nested_route", "demo nested route"),
     ];
 
+    let selected_menu_class = move |path: &str| {
+        if menu().demo_name == path {
+            "is-active"
+        } else {
+            ""
+        }
+    };
+
     view! {
         <div class="columns">
             <div class="menu column is-one-fifth">
@@ -80,14 +77,9 @@ pub fn LeptosDemoMenu() -> impl IntoView {
                     {menu_items
                         .into_iter()
                         .map(move |(path, label)| {
-                            let active_class: &str = if selected_menu(path) {
-                                "is-active"
-                            } else {
-                                ""
-                            };
                             view! {
                                 <li>
-                                    <A class=active_class href=path>
+                                    <A class=move || { selected_menu_class(path) } href=path>
                                         {(*label).to_string()}
                                     </A>
                                 </li>
