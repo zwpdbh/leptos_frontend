@@ -19,7 +19,7 @@ fn App() -> impl IntoView {
     provide_context(menu);
 
     view! {
-        <p>"current menu: " {move || { menu().demo_name() }}</p>
+        <p>"current menu: " {move || { menu().demo_name }}</p>
         <Router>
             <header>
                 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -110,26 +110,28 @@ fn App() -> impl IntoView {
 
                                 <Route
                                     path=""
-                                    view=|| {
-                                        let menu = use_context::<ReadSignal<LeptosDemoMenu>>()
-                                            .expect("ReadSignal<LeptosDemoMenu> provided");
-                                        match menu().demo_name().as_str() {
+                                    view=move || {
+                                        let menu_value = menu.get();
+                                        let demo_name = menu_value.demo_name.clone();
+                                        match demo_name.as_str() {
                                             "demo_nested_route" => {
                                                 view! {
                                                     <div>
                                                         <p class="subtitle">
-                                                            "Select to further check nested route"
+                                                            "This is the default view for /demos/demo_nested_route. A"
                                                         </p>
                                                     </div>
                                                 }
                                             }
                                             _ => {
                                                 view! {
-                                                    // Get the context for the setter
-
                                                     // This is necessary and need to be set to empty because
                                                     // it represent the default further subview for /demos/xxx/(furhter_subview).
-                                                    <div></div>
+                                                    <div>
+                                                        <p class="subtitle">
+                                                            This is the previous view param: /demos/ {demo_name}
+                                                        </p>
+                                                    </div>
                                                 }
                                             }
                                         }

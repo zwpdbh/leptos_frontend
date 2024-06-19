@@ -8,7 +8,6 @@ use super::demo_error_handling::DemoErrorHandling;
 use super::demo_form_and_input::DemoFormAndInput;
 use super::demo_iteration::DemoBasicIteration;
 use super::demo_nested_route::DemoNestedRoute;
-use super::demo_nested_route::RoutesForDemoNestedRoute;
 use super::demo_parent_children_communication::DemoParentChildrenCommunication;
 use super::demo_reactivity::DemoReactivity;
 
@@ -24,7 +23,7 @@ pub mod demo_reactivity;
 
 #[derive(Clone)]
 pub struct LeptosDemoMenu {
-    demo_name: String,
+    pub demo_name: String,
 }
 
 impl LeptosDemoMenu {
@@ -32,9 +31,6 @@ impl LeptosDemoMenu {
         LeptosDemoMenu {
             demo_name: demo_name.to_string(),
         }
-    }
-    pub fn demo_name(self) -> String {
-        self.demo_name
     }
 }
 
@@ -176,7 +172,6 @@ pub fn LeptosDemoContent() -> impl IntoView {
         "demo_nested_route" => view! {
             <div>
                 <DemoNestedRoute/>
-            // <RoutesForDemoNestedRoute/>
             </div>
         },
         _ => view! {
