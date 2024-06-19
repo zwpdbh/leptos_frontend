@@ -7,9 +7,18 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
+  "rust-analyzer.inlayHints.typeHints.enable": true,
+  "rust-analyzer.inlayHints.parameterHints.enable": true,
+  "rust-analyzer.inlayHints.chainingHints.enable": true,
+  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
+  "rust-analyzer.inlayHints.closureCaptureHints.enable": true,
+  "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "skip_trivial",
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "rust-analyzer.inlayHints.expressionAdjustmentHints.enable": "never",
+  "rust-analyzer.showUnlinkedFileNotification": false,
   "[rust]": {
     "editor.semanticHighlighting.enabled": true,
-    "editor.inlayHints.enabled": "off",
+    "editor.inlayHints.enabled": "on",
     "editor.parameterHints.enabled": false,
     "editor.formatOnSave": true,
     "editor.guides.indentation": false,
@@ -35,7 +44,6 @@
       "other": "on"
     },
   },
-  "rust-analyzer.showUnlinkedFileNotification": false,
   "rust-analyzer.cargo.features": [],
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": [
